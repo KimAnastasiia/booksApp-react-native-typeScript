@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, ScrollView, Image} from 'react-native';
 import { backendUrl } from '../Global';
-import myStyles from '../Utility/styles';
+import styles from '../Utility/styles';
 import Heading from './Heading';
 
 interface Book {
@@ -26,9 +26,17 @@ const AllBooksScreenComponent: React.FC<any> = () => {
   }
 
   const BookList: React.FC<{ book: Book }> = ({ book }) => (
-    <View>
-      <Text style={myStyles.title}>{book.title}</Text>
-      <Text>{book.author}</Text>
+    <View style={styles.shellBook}>
+      <View>
+        <Image
+          style={styles.tinyLogo}
+          source={require('../assets/book.png')}
+        />
+      </View>
+      <View style={{width:90}}>
+        <Text style={styles.title}>{book.title}</Text>
+        <Text style={styles.author}>{book.author}</Text>
+      </View>
     </View>
   )
 
