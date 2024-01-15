@@ -13,13 +13,14 @@ const styles = StyleSheet.create({
       fontWeight:'bold',
       fontSize:25,
     },
-    shellBook: {
+    container: {
        borderBottomWidth:2,
        margin:8,
        borderRadius:10,
        padding:10,
        flexDirection: 'row',
-       borderColor:"#EAEAEA"
+       borderColor:"#EAEAEA",
+       justifyContent:"space-between"
     },
     author:{
       fontSize:20,
@@ -30,6 +31,19 @@ const styles = StyleSheet.create({
       height: 50,
       marginRight:20
     },
+    binLogo: {
+      width: 20,
+      height: 20,
+    },
+    deleteBookButton:{
+      backgroundColor: '#EAEAEA',
+      borderRadius:30,
+      width:60,
+      height:60,
+      flex:1,
+      justifyContent:"center",
+      alignItems: 'center',
+    }
 });
 
 export default styles;
