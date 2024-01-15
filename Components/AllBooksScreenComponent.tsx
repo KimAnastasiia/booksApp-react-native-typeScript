@@ -9,7 +9,7 @@ interface Book {
   title: string;
   id: string;
 }
-const AllBooksScreenComponent: React.FC<any> = () => {
+const AllBooksScreenComponent: React.FC = () => {
   const [books, setBooks] = useState<Book[]>([])
 
   useEffect(() => {

@@ -1,8 +1,8 @@
-import AllBooksScreenComponent from './Components/AllBooksScreenComponent';
+import MainNavigatorScreenComponent from './Components/MainNavigatorScreenComponent';
 
 const App: React.FC<{}> = () => {
   return(
-    <AllBooksScreenComponent/>
+      <MainNavigatorScreenComponent/> 
   )
 }
 export default App; 
