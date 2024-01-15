@@ -1,0 +1,1 @@
+export let backendUrl = "http://192.168.31.77:4000"
