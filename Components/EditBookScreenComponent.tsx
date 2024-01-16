@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, Alert, Pressable } from 'react-native';
 import { backendUrl } from '../Global';
-interface Book {
-    author: string;
-    title: string;
-    id: string;
-}
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RootStackParamList } from './AppNavigator';
+import { Book } from '../entities/book';
 import styles from '../Utility/styles';
 import MyInput from './MyInput';
 import { RouteProp } from '@react-navigation/native';

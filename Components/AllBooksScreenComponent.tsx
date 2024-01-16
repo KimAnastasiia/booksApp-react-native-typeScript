@@ -1,30 +1,36 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ScrollView, Image, TouchableOpacity, Alert } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { View, Text, ScrollView, Image, TouchableOpacity, Alert, Pressable } from 'react-native';
 import { backendUrl } from '../Global';
 import styles from '../Utility/styles';
 import Heading from './Heading';
-interface Book {
-  author: string;
-  title: string;
-  id: string;
-}
+import { Book } from '../entities/book';
 import { RootStackParamList } from './AppNavigator';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store"
+import { setBooks } from "../redux/booksReducer";
 
 type AllBooksScreenComponentProps=NativeStackScreenProps<RootStackParamList, 'AllBooks'>
 
 const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) => {
-  const [books, setBooks] = useState<Book[]>([])
+  
+  // Redux
+  const dispatch = useDispatch();
+  const books = useSelector((state: RootState) => state.books.books)
+  
   useEffect(() => {
     getAllBooks();
   }, [])
 
   let getAllBooks = async () => {
+   
     let response = await fetch(backendUrl + `/books`)
     if (response.ok) {
       let data = await response.json();
-      setBooks(data);
+      //setBooks(data);
+      dispatch(setBooks(data));
     }
   }
 
@@ -69,6 +75,7 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
         </View>
       </View>
     </TouchableOpacity>
+   
   )
 
   return (

@@ -3,11 +3,7 @@ import { View, Text, ActivityIndicator, Alert, Pressable } from 'react-native';
 import { backendUrl } from '../Global';
 import MyInput from './MyInput';
 import styles from '../Utility/styles';
-interface Book {
-    author: string;
-    title: string;
-    id: string;
-}
+import { Book } from '../entities/book';
 
 const CreateBookScreenComponent: React.FC = () => {
     const [loading, setLoading] = useState(false);
@@ -67,7 +63,7 @@ const CreateBookScreenComponent: React.FC = () => {
                 />
             </View>
             <View style={styles.containerCreateButton}>
-                <Pressable style={styles.createButton} onPress={postBook}>
+                <Pressable style={styles.createButton} onPress={myTestFunction}>
                     <Text style={styles.textInButton}>Create</Text>
                 </Pressable>
             </View>
