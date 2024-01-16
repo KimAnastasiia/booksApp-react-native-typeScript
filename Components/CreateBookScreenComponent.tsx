@@ -49,7 +49,7 @@ const CreateBookScreenComponent: React.FC = () => {
     };
     return (
         <View style={styles.containerCreateBook}>
-            <View style={{width:"100%", height:600,justifyContent:"center" }}>
+            <View style={styles.containerInputs}>
                 <ActivityIndicator animating={loading} size="large" color="#0000ff" />
                 <MyInput
                     onChangeText={(text) => { setBook({ ...book, title: text }) }}

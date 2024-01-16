@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F08841',
     width: '100%',
     marginTop: 26,
+    height:70
   },
   textInButton: {
     fontSize: 16,
@@ -87,6 +88,11 @@ const styles = StyleSheet.create({
     marginBottom:10,
     color:"#F06A41",
     fontWeight: 'bold',
+  },
+  containerInputs:{
+    width:"100%", 
+    height:600,
+    justifyContent:"flex-start"
   }
 });
 
