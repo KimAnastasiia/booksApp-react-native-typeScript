@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, Alert} from 'react-native';
-import Toast from 'react-native-toast-message';
 import { backendUrl } from '../Global';
 import styles from '../Utility/styles';
 import Heading from './Heading';

@@ -54,14 +54,16 @@ const CreateBookScreenComponent: React.FC = () => {
                 <MyInput
                     onChangeText={(text) => { setBook({ ...book, title: text }) }}
                     value={book.title}
-                    placeholder={"Title"}
+                    placeholder={"title of book"}
                     secureTextEntry={false}
+                    label='Title'
                 />
                 <MyInput
                     onChangeText={(text) => { setBook({ ...book, author: text }) }}
                     value={book.author}
-                    placeholder={"Author"}
+                    placeholder={"author of book"}
                     secureTextEntry={false}
+                    label='Author'
                 />
             </View>
             <View style={styles.containerCreateButton}>

@@ -49,9 +49,9 @@ const styles = StyleSheet.create({
     fontSize: 20,
     borderBottomWidth: 1,
     borderRadius: 15,
-    margin: 10,
     borderColor: "#EAEAEA",
-    width: "100%"
+    width: "100%",
+    marginBottom:20
   },
   containerCreateBook: {
     alignContent: "center",
@@ -65,9 +65,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 12,
     paddingHorizontal: 32,
-
     elevation: 3,
-    backgroundColor: 'black',
+    backgroundColor: '#F08841',
     width: '100%',
     marginTop: 26,
   },
@@ -82,6 +81,12 @@ const styles = StyleSheet.create({
     width:"100%",
     alignItems:"center",
     justifyContent:"flex-end"
+  },
+  label:{
+    fontSize:20,
+    marginBottom:10,
+    color:"#F06A41",
+    fontWeight: 'bold',
   }
 });
 
