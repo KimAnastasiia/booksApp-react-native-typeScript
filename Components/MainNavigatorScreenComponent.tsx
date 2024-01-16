@@ -2,15 +2,13 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import AllBooksScreenComponent from './AllBooksScreenComponent';
 import CustomIcon from './CustomIcon';
-import { NavigationContainer } from '@react-navigation/native';
 import CreateBookScreenComponent from './CreateBookScreenComponent';
 import CustomCreateBookIcon from './CustomCreateBookIcon';
 
 const Tap = createBottomTabNavigator();
 
 const MainNavigatorScreenComponent: React.FC = () => (
-  
-        <NavigationContainer >
+
             <Tap.Navigator initialRouteName='All books'
         
                 screenOptions={({ route }) => ({
@@ -44,7 +42,7 @@ const MainNavigatorScreenComponent: React.FC = () => (
                 <Tap.Screen name="Create new book" component={CreateBookScreenComponent} />
                 
             </Tap.Navigator>
-        </NavigationContainer>
+
 
 );
 export default MainNavigatorScreenComponent;
