@@ -41,7 +41,7 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
     })
     if (response.ok) {
       const updatedBooks = books.filter(book => book.id !== id);
-      setBooks(updatedBooks);
+      dispatch(setBooks(updatedBooks));
       return Alert.alert('book deleted successfully');
     } else {
       return Alert.alert('Error occurred when deleting the book');

@@ -4,7 +4,9 @@ import { backendUrl } from '../Global';
 import MyInput from './MyInput';
 import styles from '../Utility/styles';
 import { Book } from '../entities/book';
-
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store"
+import { setBooks } from "../redux/booksReducer";
 const CreateBookScreenComponent: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [book, setBook] = useState<Book>({
@@ -12,7 +14,9 @@ const CreateBookScreenComponent: React.FC = () => {
         title: "",
         id: ""
     })
-
+    const dispatch = useDispatch();
+    const books = useSelector((state: RootState) => state.books.books)
+    
     let postBook = async () => {
         try {
             if (!book.title || !book.author) {
@@ -29,6 +33,8 @@ const CreateBookScreenComponent: React.FC = () => {
             });
             setLoading(false);
             if (response.ok) {
+                let data = await response.json();
+                dispatch(setBooks([...books,{...book, id:data.id} ]))
                 setBook({
                     author: "",
                     title: "",
@@ -63,7 +69,7 @@ const CreateBookScreenComponent: React.FC = () => {
                 />
             </View>
             <View style={styles.containerCreateButton}>
-                <Pressable style={styles.createButton} onPress={myTestFunction}>
+                <Pressable style={styles.createButton} onPress={postBook}>
                     <Text style={styles.textInButton}>Create</Text>
                 </Pressable>
             </View>

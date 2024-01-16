@@ -10,10 +10,6 @@ const Tap = createBottomTabNavigator();
 
 const MainNavigatorScreenComponent: React.FC = () => {
 
-    let myTestFunction = () => {
-        Alert.alert('Function in parameters');
-    }
-
     return (
         <Tap.Navigator initialRouteName='All books'
 
