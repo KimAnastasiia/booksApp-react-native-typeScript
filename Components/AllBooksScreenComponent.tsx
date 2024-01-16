@@ -12,9 +12,9 @@ interface Book {
 import { RootStackParamList } from './AppNavigator';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
-type LoginScreenComponentProps=NativeStackScreenProps<RootStackParamList, 'AllBooks'>
+type AllBooksScreenComponentProps=NativeStackScreenProps<RootStackParamList, 'AllBooks'>
 
-const AllBooksScreenComponent: React.FC<LoginScreenComponentProps> = (props) => {
+const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) => {
   const [books, setBooks] = useState<Book[]>([])
   useEffect(() => {
     getAllBooks();
@@ -44,7 +44,7 @@ const AllBooksScreenComponent: React.FC<LoginScreenComponentProps> = (props) => 
   }
   const BookList: React.FC<{ book: Book }> = ({ book }) => (
     <TouchableOpacity onPress={() => {
-      props.navigation.push('EditBook')
+      props.navigation.push('EditBook', { id: book.id } )
     }}>
       <View style={styles.container}>
         <View style={{ flexDirection: 'row', }}>

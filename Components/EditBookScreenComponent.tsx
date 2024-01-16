@@ -8,38 +8,45 @@ interface Book {
 }
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from './AppNavigator';
+import styles from '../Utility/styles';
+import MyInput from './MyInput';
+import { RouteProp } from '@react-navigation/native';
 
-type EditBookScreenComponentProps=NativeStackScreenProps<RootStackParamList, 'EdiitBook'>
 
-const EditBookScreenComponent: React.FC<EditBookScreenComponentProps> = (props) => {
+interface ScreenEditBookNavigationProps {
+    route: RouteProp<{ params: { id: string } }, 'params'>;
+}
+
+const EditBookScreenComponent: React.FC<ScreenEditBookNavigationProps> = ({ route }) => {
+    const { id } = route.params;
     const [loading, setLoading] = useState(false);
     const [book, setBook] = useState<Book>({
         author: "",
         title: "",
         id: ""
     })
-    /*
+
   useEffect(() => {
     getBookInfo();
   }, [])
 
     let getBookInfo = async () => {
-        let response = await fetch(backendUrl + `/books/${bookId}`)
+        let response = await fetch(backendUrl + `/books/`+id)
         if (response.ok) {
           let data = await response.json();
           setBook(data);
         }
       }
-    */
+
     let editBook = async () => {
         try {
             if (!book.title || !book.author) {
-                Alert.alert('Error', 'Please fill in both title and author before creating a book.');
+                Alert.alert('Error', 'Please fill in both title and author before edit a book.');
                 return;
             }
             setLoading(true);
-            let response = await fetch(`${backendUrl}/books`, {
-                method: 'POST',
+            let response = await fetch(`${backendUrl}/books/${id}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
@@ -53,8 +60,8 @@ const EditBookScreenComponent: React.FC<EditBookScreenComponentProps> = (props) 
                     id: ""
                 });
             } else {
-                console.error('Failed to create book:', response.status);
-                Alert.alert('Error', 'Failed to create book. Please try again later.');
+                console.error('Failed to edit book:', response.status);
+                Alert.alert('Error', 'Failed to edit book. Please try again later.');
             }
         } catch (error) {
             console.error('Error during fetch:', error);
@@ -62,7 +69,32 @@ const EditBookScreenComponent: React.FC<EditBookScreenComponentProps> = (props) 
         }
     };
     return (
-       <Text>EditBookScreenComponent</Text>
+        <>
+       <View style={styles.containerCreateBook}>
+       <View style={styles.containerInputs}>
+           <ActivityIndicator animating={loading} size="large" color="#0000ff" />
+           <MyInput
+               onChangeText={(text) => { setBook({ ...book, title: text }) }}
+               value={book.title}
+               placeholder={"title of book"}
+               secureTextEntry={false}
+               label='Title'
+           />
+           <MyInput
+               onChangeText={(text) => { setBook({ ...book, author: text }) }}
+               value={book.author}
+               placeholder={"author of book"}
+               secureTextEntry={false}
+               label='Author'
+           />
+       </View>
+       <View style={styles.containerCreateButton}>
+           <Pressable style={styles.createButton} onPress={editBook}>
+               <Text style={styles.textInButton}>Edit</Text>
+           </Pressable>
+       </View>
+   </View>
+   </>
     );
 
 }
