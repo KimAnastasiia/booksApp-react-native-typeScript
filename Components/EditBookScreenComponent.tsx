@@ -47,11 +47,7 @@ const EditBookScreenComponent: React.FC<ScreenEditBookNavigationProps> = ({ rout
             });
             setLoading(false);
             if (response.ok) {
-                setBook({
-                    author: "",
-                    title: "",
-                    id: ""
-                });
+                Alert.alert('Book edited successfully')
             } else {
                 console.error('Failed to edit book:', response.status);
                 Alert.alert('Error', 'Failed to edit book. Please try again later.');
@@ -83,7 +79,7 @@ const EditBookScreenComponent: React.FC<ScreenEditBookNavigationProps> = ({ rout
                 </View>
                 <View style={styles.containerCreateButton}>
                     <Pressable style={styles.createButton} onPress={editBook}>
-                        <Text style={styles.textInButton}>Edit</Text>
+                        <Text style={styles.textInButton}>Save</Text>
                     </Pressable>
                 </View>
             </View>

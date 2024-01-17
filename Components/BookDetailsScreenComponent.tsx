@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ActivityIndicator, Alert, Pressable } from 'react-native';
+import { View, Text, ActivityIndicator, Pressable } from 'react-native';
 import { backendUrl } from '../Global';
 import { Book } from '../entities/book';
 import styles from '../Utility/styles';
 import MyInput from './MyInput';
-import { RouteProp } from '@react-navigation/native';
+import {type StackScreenProps} from '@react-navigation/stack';
 
-interface ScreenBookDetailsNavigationProps {
-    route: RouteProp<{ params: { id: string } }, 'params'>;
-}
-const BookDetailsScreenComponent: React.FC<ScreenBookDetailsNavigationProps> = ({ route }) => {
+export type PreventRemoveParams = {
+    DetailsBook: { id: string };
+};
+
+const BookDetailsScreenComponent= ({ route, navigation}: StackScreenProps<PreventRemoveParams, 'DetailsBook'>)  => {
 
     const { id } = route.params;
     const [loading, setLoading] = useState(false);
@@ -52,7 +53,7 @@ const BookDetailsScreenComponent: React.FC<ScreenBookDetailsNavigationProps> = (
                 />
             </View>
             <View style={styles.containerCreateButton}>
-                <Pressable style={styles.createButton}>
+                <Pressable style={styles.createButton} onPress={() => navigation.push('EditBook', {id:id})}>
                     <Text style={styles.textInButton}>Edit</Text>
                 </Pressable>
             </View>
