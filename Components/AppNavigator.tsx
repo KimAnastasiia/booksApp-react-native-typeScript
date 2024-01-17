@@ -3,11 +3,13 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainNavigatorScreenComponent from './MainNavigatorScreenComponent';
 import EditBookScreenComponent from './EditBookScreenComponent';
+import BookDetailsScreenComponent from './BookDetailsScreenComponent';
 export type RootStackParamList = {
   EditBook: undefined;
     MainNavigator:undefined
     EdiitBook:undefined
     AllBooks:undefined
+    DetailsBook:undefined
 };
 
 
@@ -18,6 +20,7 @@ const AppNavigator: React.FC = () => {
   return (
       <Stack.Navigator screenOptions={{ headerShown: false, }}>
         <Stack.Screen name='MainNavigator' component={MainNavigatorScreenComponent} />
+        <Stack.Screen  options={{ headerShown: true }} name='DetailsBook' component={BookDetailsScreenComponent} />
         <Stack.Screen  options={{ headerShown: true }} name='EditBook' component={EditBookScreenComponent} />
       </Stack.Navigator>
   );

@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     height:70
   },
   textInButton: {
-    fontSize: 16,
+    fontSize: 20,
     lineHeight: 21,
     fontWeight: 'bold',
     letterSpacing: 0.25,

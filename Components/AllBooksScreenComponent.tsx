@@ -50,7 +50,7 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
   }
   const BookList: React.FC<{ book: Book }> = ({ book }) => (
     <TouchableOpacity onPress={() => {
-      props.navigation.push('EditBook', { id: book.id } )
+      props.navigation.push('DetailsBook', { id: book.id } )
     }}>
       <View style={styles.container}>
         <View style={{ flexDirection: 'row', }}>

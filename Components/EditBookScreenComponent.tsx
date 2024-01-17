@@ -6,7 +6,6 @@ import styles from '../Utility/styles';
 import MyInput from './MyInput';
 import { RouteProp } from '@react-navigation/native';
 
-
 interface ScreenEditBookNavigationProps {
     route: RouteProp<{ params: { id: string } }, 'params'>;
 }
@@ -20,17 +19,17 @@ const EditBookScreenComponent: React.FC<ScreenEditBookNavigationProps> = ({ rout
         id: ""
     })
 
-  useEffect(() => {
-    getBookInfo();
-  }, [])
+    useEffect(() => {
+        getBookInfo();
+    }, [])
 
     let getBookInfo = async () => {
-        let response = await fetch(backendUrl + `/books/`+id)
+        let response = await fetch(backendUrl + `/books/` + id)
         if (response.ok) {
-          let data = await response.json();
-          setBook(data);
+            let data = await response.json();
+            setBook(data);
         }
-      }
+    }
 
     let editBook = async () => {
         try {
@@ -64,31 +63,31 @@ const EditBookScreenComponent: React.FC<ScreenEditBookNavigationProps> = ({ rout
     };
     return (
         <>
-       <View style={styles.containerCreateBook}>
-       <View style={styles.containerInputs}>
-           <ActivityIndicator animating={loading} size="large" color="#0000ff" />
-           <MyInput
-               onChangeText={(text) => { setBook({ ...book, title: text }) }}
-               value={book.title}
-               placeholder={"title of book"}
-               secureTextEntry={false}
-               label='Title'
-           />
-           <MyInput
-               onChangeText={(text) => { setBook({ ...book, author: text }) }}
-               value={book.author}
-               placeholder={"author of book"}
-               secureTextEntry={false}
-               label='Author'
-           />
-       </View>
-       <View style={styles.containerCreateButton}>
-           <Pressable style={styles.createButton} onPress={editBook}>
-               <Text style={styles.textInButton}>Edit</Text>
-           </Pressable>
-       </View>
-   </View>
-   </>
+            <View style={styles.containerCreateBook}>
+                <View style={styles.containerInputs}>
+                    <ActivityIndicator animating={loading} size="large" color="#0000ff" />
+                    <MyInput
+                        onChangeText={(text) => { setBook({ ...book, title: text }) }}
+                        value={book.title}
+                        placeholder={"title of book"}
+                        secureTextEntry={false}
+                        label='Title'
+                    />
+                    <MyInput
+                        onChangeText={(text) => { setBook({ ...book, author: text }) }}
+                        value={book.author}
+                        placeholder={"author of book"}
+                        secureTextEntry={false}
+                        label='Author'
+                    />
+                </View>
+                <View style={styles.containerCreateButton}>
+                    <Pressable style={styles.createButton} onPress={editBook}>
+                        <Text style={styles.textInButton}>Edit</Text>
+                    </Pressable>
+                </View>
+            </View>
+        </>
     );
 
 }
