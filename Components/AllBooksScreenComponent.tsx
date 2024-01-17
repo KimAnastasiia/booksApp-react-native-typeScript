@@ -53,19 +53,19 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
       props.navigation.push('DetailsBook', { id: book.id } )
     }}>
       <View style={styles.container}>
-        <View style={{ flexDirection: 'row', }}>
-          <View>
+        <View style={{ flexDirection: 'row', width:"84%"}}>
+          <View style={{ width: "20%"}}>
             <Image
               style={styles.tinyLogo}
               source={require('../assets/book.png')}
             />
           </View>
-          <View style={{ width: 90 }}>
+          <View style={{ width: "80%"}}>
             <Text style={styles.title}>{book.title}</Text>
             <Text style={styles.author}>{book.author}</Text>
           </View>
         </View>
-        <View>
+        <View style={{ width: "16%"}}>
           <TouchableOpacity style={styles.deleteBookButton} onPress={() => { deleteBook(book.id) }} >
             <Image
               style={styles.binLogo}
@@ -79,8 +79,7 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
   )
 
   return (
-    <ScrollView>
-      <Heading>List of books</Heading>
+    <ScrollView style={{backgroundColor:"white"}}>
       {books.length > 0 ? (
         books.map((book) => <BookList key={book.id} book={book} />)
       ) : (

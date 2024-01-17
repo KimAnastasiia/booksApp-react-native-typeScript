@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
     padding: 10,
     flexDirection: 'row',
     borderColor: "#EAEAEA",
-    justifyContent: "space-between"
+    width:"100%",
+    alignItems:"center"
   },
   author: {
     fontSize: 20,
@@ -40,7 +41,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     width: 60,
     height: 60,
-    flex: 1,
     justifyContent: "center",
     alignItems: 'center',
   },
