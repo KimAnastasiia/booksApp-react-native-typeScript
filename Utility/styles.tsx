@@ -71,6 +71,17 @@ const styles = StyleSheet.create({
     marginTop: 26,
     height:70
   },
+  editButton:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    elevation: 3,
+    backgroundColor: '#E8BB61',
+    width: '100%',
+    marginTop: 26,
+    height:70
+  },
   textInButton: {
     fontSize: 20,
     lineHeight: 21,
@@ -93,6 +104,43 @@ const styles = StyleSheet.create({
     width:"100%", 
     height:600,
     justifyContent:"flex-start"
+  },
+  bookTitle:{
+    fontSize: 22,
+    color: 'balck',
+    marginBottom:3,
+    fontWeight:"bold"
+  },
+  containerDescriptions:{
+    width:"100%", 
+    height:600,
+    alignItems:"center"
+  },
+  photoBook:{
+    width: 300,
+    height: 350,
+    marginTop:20
+  },
+  bookAuthor:{
+    fontSize: 19
+  },
+  editPressable:{
+    height:30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F08841',
+    width: '20%',
+    marginTop: 20,
+    marginRight:10,
+    borderRadius:40
+  },
+  textInButtonEdit:{
+    color:"white",
+    fontSize:15
+  },
+  containerEditButton:{
+    width:"100%",
+    alignItems:"flex-end"
   }
 });
 

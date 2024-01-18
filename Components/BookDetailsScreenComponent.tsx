@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, ActivityIndicator, Pressable } from 'react-native';
+import { View, Text, ActivityIndicator, Pressable, Image, ScrollView } from 'react-native';
 import { backendUrl } from '../Global';
 import { Book } from '../entities/book';
 import styles from '../Utility/styles';
-import MyInput from './MyInput';
-import {type StackScreenProps} from '@react-navigation/stack';
+import { type StackScreenProps } from '@react-navigation/stack';
 
 export type PreventRemoveParams = {
     DetailsBook: { id: string };
 };
 
-const BookDetailsScreenComponent= ({ route, navigation}: StackScreenProps<PreventRemoveParams, 'DetailsBook'>)  => {
+const BookDetailsScreenComponent = ({ route, navigation }: StackScreenProps<PreventRemoveParams, 'DetailsBook'>) => {
 
     const { id } = route.params;
     const [loading, setLoading] = useState(false);
@@ -36,28 +35,27 @@ const BookDetailsScreenComponent= ({ route, navigation}: StackScreenProps<Preven
     }
 
     return (
-        <View style={styles.containerCreateBook}>
-            <View style={styles.containerInputs}>
-                <ActivityIndicator animating={loading} size="large" color="#0000ff" />
-                <MyInput
-                    value={book.title}
-                    secureTextEntry={false}
-                    label='Title'
-                    editable={false}
-                />
-                <MyInput
-                    value={book.author}
-                    secureTextEntry={false}
-                    label='Author'
-                    editable={false}
-                />
-            </View>
-            <View style={styles.containerCreateButton}>
-                <Pressable style={styles.createButton} onPress={() => navigation.push('EditBook', {id:id})}>
-                    <Text style={styles.textInButton}>Edit</Text>
+        <ScrollView style={{ backgroundColor: "white" }}>
+
+            <View style={styles.containerEditButton}>
+                <Pressable style={styles.editPressable} onPress={() => navigation.push('EditBook', { id: id })}>
+                    <Text style={styles.textInButtonEdit}>edit</Text>
                 </Pressable>
             </View>
-        </View>
+
+            <View style={styles.containerCreateBook}>
+                <Image
+                    style={styles.photoBook}
+                    source={require('../assets/bookPhoto.jpg')}
+                />
+                <View style={styles.containerDescriptions}>
+                    <ActivityIndicator animating={loading} size="large" color="#0000ff" />
+                    <Text style={styles.bookTitle}>{book.title}</Text>
+                    <Text style={styles.bookAuthor}>{book.author}</Text>
+                </View>
+            </View>
+
+        </ScrollView>
     );
 
 }

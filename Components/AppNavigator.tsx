@@ -1,9 +1,11 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
+import { View, Text, ScrollView, Image, TouchableOpacity, Alert, Pressable } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainNavigatorScreenComponent from './MainNavigatorScreenComponent';
 import EditBookScreenComponent from './EditBookScreenComponent';
 import BookDetailsScreenComponent from './BookDetailsScreenComponent';
+import styles from '../Utility/styles';
 export type RootStackParamList = {
   EditBook: undefined;
     MainNavigator:undefined
