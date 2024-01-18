@@ -37,7 +37,6 @@ const styles = StyleSheet.create({
     height: 20,
   },
   deleteBookButton: {
-    backgroundColor: '#EAEAEA',
     borderRadius: 30,
     width: 60,
     height: 60,

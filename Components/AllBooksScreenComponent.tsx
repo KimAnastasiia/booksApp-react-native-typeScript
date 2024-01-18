@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, Alert, Pressable } from 'react-native';
 import { backendUrl } from '../Global';
 import styles from '../Utility/styles';
-import Heading from './Heading';
 import { Book } from '../entities/book';
 import { RootStackParamList } from './AppNavigator';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
@@ -35,18 +34,33 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
   }
 
   let deleteBook = async (id: string) => {
-
-    let response = await fetch(backendUrl + `/books/${id}`, {
-      method: 'DELETE'
-    })
-    if (response.ok) {
-      const updatedBooks = books.filter(book => book.id !== id);
-      dispatch(setBooks(updatedBooks));
-      return Alert.alert('book deleted successfully');
-    } else {
-      return Alert.alert('Error occurred when deleting the book');
-
-    }
+    Alert.alert(
+      'Confirm Deletion',
+      'Are you sure you want to delete this book?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Delete',
+          onPress: async () => {
+            let response = await fetch(backendUrl + `/books/${id}`, {
+              method: 'DELETE'
+            });
+            if (response.ok) {
+              const updatedBooks = books.filter(book => book.id !== id);
+              dispatch(setBooks(updatedBooks));
+              return Alert.alert('Book deleted successfully');
+            } else {
+              return Alert.alert('Error occurred when deleting the book');
+            }
+          },
+          style: 'destructive',
+        },
+      ],
+      { cancelable: false }
+    );
   }
   const BookList: React.FC<{ book: Book }> = ({ book }) => (
     <TouchableOpacity onPress={() => {
@@ -57,7 +71,7 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
           <View style={{ width: "20%"}}>
             <Image
               style={styles.tinyLogo}
-              source={require('../assets/book.png')}
+              source={require('../assets/open-book.png')}
             />
           </View>
           <View style={{ width: "80%"}}>
@@ -69,7 +83,7 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
           <TouchableOpacity style={styles.deleteBookButton} onPress={() => { deleteBook(book.id) }} >
             <Image
               style={styles.binLogo}
-              source={require('../assets/bin.png')}
+              source={require('../assets/delete.png')}
             />
           </TouchableOpacity>
         </View>
