@@ -35,27 +35,22 @@ const BookDetailsScreenComponent = ({ route, navigation }: StackScreenProps<Prev
     }
 
     return (
-        <ScrollView style={{ backgroundColor: "white" }}>
-
+        <View style={styles.containerDetails}>
             <View style={styles.containerEditButton}>
                 <Pressable style={styles.editPressable} onPress={() => navigation.push('EditBook', { id: id })}>
                     <Text style={styles.textInButtonEdit}>edit</Text>
                 </Pressable>
             </View>
-
-            <View style={styles.containerCreateBook}>
-                <Image
-                    style={styles.photoBook}
-                    source={require('../assets/bookPhoto.jpg')}
-                />
-                <View style={styles.containerDescriptions}>
-                    <ActivityIndicator animating={loading} size="large" color="#0000ff" />
-                    <Text style={styles.bookTitle}>{book.title}</Text>
-                    <Text style={styles.bookAuthor}>{book.author}</Text>
-                </View>
+            <Image
+                style={styles.photoBook}
+                source={require('../assets/bookPhoto.jpg')}
+            />
+            <View style={styles.containerDescriptions}>
+                <ActivityIndicator animating={loading} size="large" color="#0000ff" />
+                <Text style={styles.bookTitle}>{book.title}</Text>
+                <Text style={styles.bookAuthor}>{book.author}</Text>
             </View>
-
-        </ScrollView>
+        </View>
     );
 
 }

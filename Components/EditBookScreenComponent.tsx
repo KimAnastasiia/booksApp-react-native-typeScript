@@ -58,32 +58,28 @@ const EditBookScreenComponent: React.FC<ScreenEditBookNavigationProps> = ({ rout
         }
     };
     return (
-        <>
-            <View style={styles.containerCreateBook}>
-                <View style={styles.containerInputs}>
-                    <ActivityIndicator animating={loading} size="large" color="#0000ff" />
-                    <MyInput
-                        onChangeText={(text) => { setBook({ ...book, title: text }) }}
-                        value={book.title}
-                        placeholder={"title of book"}
-                        secureTextEntry={false}
-                        label='Title'
-                    />
-                    <MyInput
-                        onChangeText={(text) => { setBook({ ...book, author: text }) }}
-                        value={book.author}
-                        placeholder={"author of book"}
-                        secureTextEntry={false}
-                        label='Author'
-                    />
-                </View>
-                <View style={styles.containerCreateButton}>
-                    <Pressable style={styles.createButton} onPress={editBook}>
-                        <Text style={styles.textInButton}>Save</Text>
-                    </Pressable>
-                </View>
+        <View style={styles.containerEdit}>
+            <MyInput
+                onChangeText={(text) => { setBook({ ...book, title: text }) }}
+                value={book.title}
+                placeholder={"title of book"}
+                secureTextEntry={false}
+                label='Title'
+            />
+            <MyInput
+                onChangeText={(text) => { setBook({ ...book, author: text }) }}
+                value={book.author}
+                placeholder={"author of book"}
+                secureTextEntry={false}
+                label='Author'
+            />
+            <View style={{ alignItems: "center" }}>
+                <Pressable style={styles.saveButton} onPress={editBook}>
+                    <Text style={styles.textInButton}>Save</Text>
+                </Pressable>
             </View>
-        </>
+            <ActivityIndicator style={{marginTop:30}} animating={loading} size="large" color="#0000ff" />
+        </View>
     );
 
 }

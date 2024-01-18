@@ -59,6 +59,20 @@ const styles = StyleSheet.create({
     justifyContent:"space-between",
     alignItems: "center"
   },
+  containerDetails:{
+    flex:1,
+    backgroundColor:"white",
+    alignItems:"center"
+  },
+  saveButton:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F08841',
+    width: '90%',
+    marginTop: 26,
+    height:50,
+    borderRadius:30
+  },
   createButton: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -104,6 +118,11 @@ const styles = StyleSheet.create({
     height:600,
     justifyContent:"flex-start"
   },
+  containerEdit:{
+    backgroundColor:"white",
+    flex:1,
+    paddingTop:30
+  },
   bookTitle:{
     fontSize: 22,
     color: 'balck',
@@ -118,7 +137,9 @@ const styles = StyleSheet.create({
   photoBook:{
     width: 300,
     height: 350,
-    marginTop:20
+    marginTop:20,
+    borderColor:"black",
+    borderWidth:0.5
   },
   bookAuthor:{
     fontSize: 19
