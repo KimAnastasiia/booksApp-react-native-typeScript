@@ -54,10 +54,10 @@ const styles = StyleSheet.create({
   },
   containerCreateBook: {
     alignContent: "center",
-    height: 725,
     backgroundColor: "white",
     justifyContent:"space-between",
-    alignItems: "center"
+    alignItems: "center",
+    flex:1
   },
   containerDetails:{
     flex:1,
