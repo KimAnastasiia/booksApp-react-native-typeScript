@@ -7,6 +7,7 @@ import { Book } from '../entities/book';
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store"
 import { setBooks } from "../redux/booksReducer";
+import UploadImageScreenComponent from './UploadImageScreenComponent';
 const CreateBookScreenComponent: React.FC = () => {
     const [loading, setLoading] = useState(false);
     const [book, setBook] = useState<Book>({
