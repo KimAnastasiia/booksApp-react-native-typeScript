@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
     justifyContent:"space-between",
     alignItems: "center",
-    flex:1
+    flex:1,
+    marginTop:10
   },
   containerDetails:{
     flex:1,
@@ -80,9 +81,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     elevation: 3,
     backgroundColor: '#F08841',
-    width: '100%',
+    width: '90%',
     marginTop: 26,
-    height:70
+    height:50,
+    borderRadius:30
   },
   editButton:{
     alignItems: 'center',
@@ -114,8 +116,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   containerInputs:{
-    width:"100%", 
-    height:600,
+    width:"100%",
     justifyContent:"flex-start"
   },
   containerEdit:{
