@@ -78,7 +78,7 @@ const CreateBookScreenComponent: React.FC = () => {
 
     const uploadImage = async (uri: string, bookId: string) => {
 
-        setUploading(true);
+
         const formData = new FormData();
         const fileUri = uri;
 
@@ -134,7 +134,11 @@ const CreateBookScreenComponent: React.FC = () => {
                     title: "",
                     id: ""
                 });
-                uploadImage(images[0], data.id)
+                if(images[0]){
+                    uploadImage(images[0], data.id)
+                }else{
+                    setUploading(false);
+                }
             } else {
                 console.error('Failed to create book:', response.status);
                 Alert.alert('Error', 'Failed to create book. Please try again later.');
