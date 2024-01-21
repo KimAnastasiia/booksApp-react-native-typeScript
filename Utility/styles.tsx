@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   tinyLogo: {
     width: 50,
-    height: 50,
+    height: 70,
     marginRight: 20
   },
   binLogo: {
