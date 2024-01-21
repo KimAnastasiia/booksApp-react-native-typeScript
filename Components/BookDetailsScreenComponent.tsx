@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, Pressable, Image, ScrollView } from 'react-native';
-import { backendUrl } from '../Global';
+import { backendUrl, tokenFireBaseStorage } from '../Global';
 import { Book } from '../entities/book';
 import styles from '../Utility/styles';
 import { type StackScreenProps } from '@react-navigation/stack';
@@ -43,7 +43,7 @@ const BookDetailsScreenComponent = ({ route, navigation }: StackScreenProps<Prev
             </View>
             <Image
                 style={styles.photoBook}
-                source={require('../assets/bookPhoto.jpg')}
+                source={{uri:"https://firebasestorage.googleapis.com/v0/b/books-store-dc964.appspot.com/o/photos%2F"+id+".png?alt=media&token="+tokenFireBaseStorage}}
             />
             <View style={styles.containerDescriptions}>
                 <ActivityIndicator animating={loading} size="large" color="#0000ff" />

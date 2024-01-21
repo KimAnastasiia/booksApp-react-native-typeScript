@@ -1,6 +1,6 @@
 import React, {useEffect } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, Alert, Pressable } from 'react-native';
-import { backendUrl } from '../Global';
+import { backendUrl, tokenFireBaseStorage } from '../Global';
 import styles from '../Utility/styles';
 import { Book } from '../entities/book';
 import { RootStackParamList } from './AppNavigator';
@@ -18,7 +18,7 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
   // Redux
   const dispatch = useDispatch();
   const books = useSelector((state: RootState) => state.books.books)
-  
+  const defaultImageSource = require('../assets/open-book.png');
   useEffect(() => {
     getAllBooks();
   }, [])
@@ -29,6 +29,14 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
     if (response.ok) {
       let data = await response.json();
       //setBooks(data);
+      data.forEach(async(book:Book) => {
+        let response = await fetch(`https://firebasestorage.googleapis.com/v0/b/books-store-dc964.appspot.com/o/photos%2F${book.id}.png?alt=media&token=${tokenFireBaseStorage}`)
+        if(response.ok){
+          book.hasImg=true
+        }else{
+          book.hasImg=false
+        }
+      });
       dispatch(setBooks(data));
     }
   }
@@ -62,6 +70,10 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
       { cancelable: false }
     );
   }
+
+  const getBookImageUrl = (bookId: string) => {
+    return `https://firebasestorage.googleapis.com/v0/b/books-store-dc964.appspot.com/o/photos%2F${bookId}.png?alt=media&token=${tokenFireBaseStorage}`;
+  };
   const BookList: React.FC<{ book: Book }> = ({ book }) => (
     <TouchableOpacity onPress={() => {
       props.navigation.push('DetailsBook', { id: book.id } )
@@ -71,7 +83,7 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
           <View style={{ width: "20%"}}>
             <Image
               style={styles.tinyLogo}
-              source={require('../assets/open-book.png')}
+              source={book.hasImg? { uri: getBookImageUrl(book.id) } : defaultImageSource}
             />
           </View>
           <View style={{ width: "80%"}}>
