@@ -76,16 +76,16 @@ const CreateBookScreenComponent: React.FC = () => {
     };
 
 
-    const uploadImage = async (uris: string[], bookId: string) => {
+    const uploadImage = async (uri: string, bookId: string) => {
 
+        setUploading(true);
         const formData = new FormData();
+        const fileUri = uri;
 
-        uris.forEach((uri, index) => {
-            formData.append(`file${index}`, {
-                uri: uri,
-                type: 'image/jpeg', // Adjust the type based on the file type
-                name: `image${index}-book-${book.title}.jpeg`, // Adjust the name as needed
-            });
+        formData.append('file', {
+            uri: fileUri,
+            type: 'image/jpeg', // Adjust the type based on the file type
+            name: 'myImage.jpeg', // Adjust the name as needed
         });
 
         const response = await fetch(backendUrl + `/books/photo/${bookId}`, {
@@ -107,21 +107,9 @@ const CreateBookScreenComponent: React.FC = () => {
     // Delete image from file system
     const deleteImage = async (uri: string) => {
         await FileSystem.deleteAsync(uri);
-        setImages(images.filter((i) => i !== uri));
+        setImages([]);
     };
-    // Render image list item
-    const renderItem = ({ item }: { item: any }) => {
-        const filename = item.split('/').pop();
-        return (
-            <View style={{ flexDirection: 'row', margin: 1, alignItems: 'center', gap: 5 }}>
-                <Image style={{ width: 80, height: 80 }} source={{ uri: item }} />
-                <Text style={{ flex: 1 }}>{filename}</Text>
-                <TouchableOpacity onPress={() => deleteImage(item)} style={{ marginRight: 20 }}>
-                    <Text style={{ color: "red" }}>delete</Text>
-                </TouchableOpacity>
-            </View>
-        );
-    };
+
 
     let postBook = async () => {
         try {
@@ -146,7 +134,7 @@ const CreateBookScreenComponent: React.FC = () => {
                     title: "",
                     id: ""
                 });
-                uploadImage(images, data.id)
+                uploadImage(images[0], data.id)
             } else {
                 console.error('Failed to create book:', response.status);
                 Alert.alert('Error', 'Failed to create book. Please try again later.');
@@ -174,8 +162,10 @@ const CreateBookScreenComponent: React.FC = () => {
                         secureTextEntry={false}
                         label='Author'
                     />
-                    <FlatList data={images} renderItem={renderItem} />
-
+                    {images.length>0 && 
+                    <View style={{alignItems:"center"}}>
+                        <Image style={{ width: 300, height: 350 }} source={{ uri: images[0]}} />
+                    </View>}
                     {uploading && (
                         <View
                             style={{
@@ -187,8 +177,15 @@ const CreateBookScreenComponent: React.FC = () => {
                             <ActivityIndicator color="#fff" animating size="large" />
                         </View>
                     )}
-                    <Button title="Add photo from gallery" onPress={() => selectImage(true)} />
-                    <Button title="To make a photo" onPress={() => selectImage(false)} />
+                    {images.length==0 && 
+                    <>
+                        <Button title="Add photo from gallery" onPress={() => selectImage(true)} />
+                        <Button title="To make a photo" onPress={() => selectImage(false)} />
+                    </>
+                    }
+                    { images.length>0 && <Button title="delete" onPress={() => deleteImage(images[0])} />}
+                 
+                    
                 </View>
                 <View style={styles.containerCreateButton}>
                     <Pressable style={styles.createButton} onPress={postBook}>
