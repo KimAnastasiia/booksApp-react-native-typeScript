@@ -170,17 +170,9 @@ const CreateBookScreenComponent: React.FC = () => {
                     <View style={{alignItems:"center"}}>
                         <Image style={{ width: 300, height: 350 }} source={{ uri: images[0]}} />
                     </View>}
-                    {uploading && (
-                        <View
-                            style={{
-                                backgroundColor: 'rgba(0,0,0,0.4)',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                            }}
-                        >
-                            <ActivityIndicator color="#fff" animating size="large" />
-                        </View>
-                    )}
+                  
+                    <ActivityIndicator animating={uploading} size="large" color="#0000ff" />
+                  
                     {images.length==0 && 
                     <>
                         <Button title="Add photo from gallery" onPress={() => selectImage(true)} />

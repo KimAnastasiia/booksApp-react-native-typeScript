@@ -5,6 +5,7 @@ import MainNavigatorScreenComponent from './MainNavigatorScreenComponent';
 import EditBookScreenComponent from './EditBookScreenComponent';
 import BookDetailsScreenComponent from './BookDetailsScreenComponent';
 import LoginComponent from './LoginComponent';
+import CreateAccountScreenComponent from './CreateAccountScreenComponent';
 
 export type RootStackParamList = {
   EditBook: undefined;
@@ -13,6 +14,7 @@ export type RootStackParamList = {
     AllBooks:undefined
     DetailsBook:undefined
     Login:undefined
+    CreateAccount:undefined
 };
 
 
@@ -23,6 +25,7 @@ const AppNavigator: React.FC = () => {
   return (
       <Stack.Navigator initialRouteName='Login' screenOptions={{ headerShown: false, }}>
         <Stack.Screen name='Login' component={LoginComponent} />
+        <Stack.Screen name='CreateAccount' component={CreateAccountScreenComponent} />
         <Stack.Screen name='MainNavigator' component={MainNavigatorScreenComponent} />
         <Stack.Screen  options={{ headerShown: true }} name='DetailsBook' component={BookDetailsScreenComponent} />
         <Stack.Screen  options={{ headerShown: true }} name='EditBook' component={EditBookScreenComponent} />
