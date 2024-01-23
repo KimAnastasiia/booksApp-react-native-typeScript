@@ -42,7 +42,6 @@ const MainNavigatorScreenComponent: React.FC = () => {
         >
             <Tap.Screen name="All books" component={AllBooksScreenComponent} />
             <Tap.Screen name="Create new book" component={CreateBookScreenComponent} />
-
         </Tap.Navigator>
 
 

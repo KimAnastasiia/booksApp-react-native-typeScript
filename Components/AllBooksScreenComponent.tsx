@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, Alert, Pressable } from 'react-native';
-import { backendUrl, tokenFireBaseStorage } from '../Global';
+import { backendUrl, firebaseStorage, tokenFireBaseStorage } from '../Global';
 import styles from '../Utility/styles';
 import { Book } from '../entities/book';
 import { RootStackParamList } from './AppNavigator';
@@ -33,7 +33,7 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
         data.map(async (book: Book) => {
 
           try {
-            let response = await fetch(`https://firebasestorage.googleapis.com/v0/b/books-store-dc964.appspot.com/o/photos%2F${book.id}.png?alt=media&token=${tokenFireBaseStorage}`)
+            let response = await fetch(`${firebaseStorage}${book.id}.png?alt=media&token=${tokenFireBaseStorage}`)
             if (response.ok) {
               book.hasImg = true
             } else {
@@ -77,9 +77,8 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
       { cancelable: false }
     );
   }
-
   const getBookImageUrl = (bookId: string) => {
-    return `https://firebasestorage.googleapis.com/v0/b/books-store-dc964.appspot.com/o/photos%2F${bookId}.png?alt=media&token=${tokenFireBaseStorage}`;
+    return `${firebaseStorage}${bookId}.png?alt=media&token=${tokenFireBaseStorage}`;
   };
   const BookList: React.FC<{ book: Book }> = ({ book }) => (
     <TouchableOpacity onPress={() => {

@@ -5,12 +5,12 @@ import {getAuth} from "firebase/auth"
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCwHxY8TErsVgVrjGyeLYwRJAMeqfJvWNE",
-  authDomain: "books-store-4d6d7.firebaseapp.com",
-  projectId: "books-store-4d6d7",
-  storageBucket: "books-store-4d6d7.appspot.com",
-  messagingSenderId: "109986577361",
-  appId: "1:109986577361:web:b922c4be56fdc6b7b63ef0",
+  apiKey: "AIzaSyD4RXm6gcIIbd9oD353ggtmyZvQ9_xqgfE",
+  authDomain: "books-store-cf637.firebaseapp.com",
+  projectId: "books-store-cf637",
+  storageBucket: "books-store-cf637.appspot.com",
+  messagingSenderId: "979521315930",
+  appId: "1:979521315930:web:26b69141ed2ef9173ce463",
   measurementId: "G-EYRHHPSFGW"
 };
 
