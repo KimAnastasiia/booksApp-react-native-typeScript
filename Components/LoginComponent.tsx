@@ -3,11 +3,10 @@ import React, { useState } from 'react';
 import { View, Image, ActivityIndicator, TextInput, Pressable, Text, TouchableOpacity } from 'react-native';
 import { RootStackParamList } from './AppNavigator';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword, signOut , sendPasswordResetEmail} from "firebase/auth";
 import { FIREBASE_AUTH } from './FirebaseConfig';
 import styles from '../Utility/styles';
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/store"
 import { setIdToken } from '../redux/idTokenReducer';
 
 type LoginComponentProps = NativeStackScreenProps<RootStackParamList, 'Login'>

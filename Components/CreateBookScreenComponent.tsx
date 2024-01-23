@@ -100,6 +100,7 @@ const CreateBookScreenComponent: React.FC = () => {
         setUploading(false);
         if (response.ok) {
             Alert.alert('The book was successfully published');
+            deleteImage(images[0])
             setImages([])
         } else {
             Alert.alert('Error', 'Failed to post photos of book. Please try again later.');
@@ -123,7 +124,8 @@ const CreateBookScreenComponent: React.FC = () => {
             let response = await fetch(`${backendUrl}/books`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    token: idToken
                 },
                 body: JSON.stringify(book)
             });
@@ -138,12 +140,12 @@ const CreateBookScreenComponent: React.FC = () => {
                 });
                 if(images[0]){
                     uploadImage(images[0], data.id)
-                }else{
-                    setUploading(false);
                 }
             } else {
                 console.error('Failed to create book:', response.status);
                 Alert.alert('Error', 'Failed to create book. Please try again later.');
+                setUploading(false);
+              
             }
         } catch (error) {
             console.error('Error during fetch:', error);

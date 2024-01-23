@@ -4,12 +4,48 @@ import { Alert } from 'react-native';
 import AllBooksScreenComponent from './AllBooksScreenComponent';
 import CustomIcon from './CustomIcon';
 import CreateBookScreenComponent from './CreateBookScreenComponent';
-import CustomCreateBookIcon from './CustomCreateBookIcon';
-
+import { RootStackParamList } from './AppNavigator';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { FIREBASE_AUTH } from './FirebaseConfig';
 const Tap = createBottomTabNavigator();
 
-const MainNavigatorScreenComponent: React.FC = () => {
+const LogoutComponent = () => {
+    return null;
+}
 
+type MainScreenComponentProps = NativeStackScreenProps<RootStackParamList, 'MainNavigator'>
+const MainNavigatorScreenComponent: React.FC<MainScreenComponentProps> = (props) => {
+
+    const auth = FIREBASE_AUTH
+  
+    const handleSignOut = async () => {
+      try {
+        await auth.signOut();
+        props.navigation.push('Login')
+      } catch (error:any) {
+        console.error('Error signing out:', error.message);
+        Alert.alert('Error', 'An error occurred while signing out.');
+      }
+    };
+  
+    const showAlert = () => {
+      Alert.alert(
+        'Log out',
+        'Are you sure you are logging out?',
+        [
+          {
+            text: 'Cancel',
+            onPress: () => console.log('Cancel Pressed'),
+            style: 'cancel',
+          },
+          {
+            text: 'Yes',
+            onPress: (handleSignOut),
+          },
+        ],
+        { cancelable: false }
+      );
+    };
     return (
         <Tap.Navigator initialRouteName='All books'
 
@@ -17,10 +53,13 @@ const MainNavigatorScreenComponent: React.FC = () => {
                 tabBarIcon: ({ focused, color }) => {
                     let rn = route.name;
                     if (rn == "All books") {
-                        return <CustomIcon color={focused ? 'black' : 'gray'} />;
+                        return <CustomIcon color={focused ? 'black' : 'gray'} img={require("../assets/books.png")}/>;
                     }
                     if (rn == "Create new book") {
-                        return <CustomCreateBookIcon color={focused ? 'black' : 'gray'} />;
+                        return <CustomIcon color={focused ? 'black' : 'gray'} img={require('../assets/add.png')} />;
+                    }
+                    if (rn == "Log out") {
+                        return <CustomIcon onPress={showAlert} nameOfComponent="logOut" color={focused ? 'black' : 'gray'} img={require('../assets/log-out.png')} />;
                     }
                 },
                 tabBarStyle: {
@@ -42,6 +81,8 @@ const MainNavigatorScreenComponent: React.FC = () => {
         >
             <Tap.Screen name="All books" component={AllBooksScreenComponent} />
             <Tap.Screen name="Create new book" component={CreateBookScreenComponent} />
+            <Tap.Screen name="Log out" component={LogoutComponent} />
+             
         </Tap.Navigator>
 
 

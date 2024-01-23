@@ -15,6 +15,7 @@ export type RootStackParamList = {
     DetailsBook:undefined
     Login:undefined
     CreateAccount:undefined
+    LogOut:undefined
 };
 
 
