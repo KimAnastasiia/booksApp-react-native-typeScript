@@ -1,6 +1,6 @@
 // screens/LoginScreen.tsx
 import React, { useState } from 'react';
-import { View, Image, ActivityIndicator, TextInput, Pressable, Text, TouchableOpacity } from 'react-native';
+import { View, Image, ActivityIndicator, TextInput, Pressable, Text, TouchableOpacity,Alert } from 'react-native';
 import { RootStackParamList } from './AppNavigator';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { signInWithEmailAndPassword, signOut , sendPasswordResetEmail} from "firebase/auth";
@@ -8,6 +8,7 @@ import { FIREBASE_AUTH } from './FirebaseConfig';
 import styles from '../Utility/styles';
 import { useDispatch, useSelector } from "react-redux";
 import { setIdToken } from '../redux/idTokenReducer';
+import { setAuth } from '../redux/authReducer';
 
 type LoginComponentProps = NativeStackScreenProps<RootStackParamList, 'Login'>
 
@@ -23,14 +24,14 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
     try {
       const response = await signInWithEmailAndPassword(auth, email, password)
       dispatch(setIdToken(response._tokenResponse.idToken));
+      dispatch(setAuth(auth));
       props.navigation.push('MainNavigator')
     } catch (error: any) {
-      alert("sign in failed" + error.message)
+      Alert.alert("Failed authorization","Sign in failed check your email or password")
     } finally {
       setLoading(false)
     }
   }
-
   return (
     <View style={styles.containerLogin}>
       <View>
@@ -56,7 +57,9 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
           value={password}
           style={styles.loginInput}
         />
-
+        <TouchableOpacity onPress={()=>{props.navigation.push('RestorePassword')}} >
+          <Text style={{ textDecorationLine: 'underline', color: '#004832' }}>Forgot password?</Text>
+        </TouchableOpacity>
         <Pressable style={styles.loginButton} onPress={signIn}>
           <Text style={styles.textInButton}>Login</Text>
         </Pressable>

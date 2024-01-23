@@ -15,6 +15,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#F0A741",
     width: "100%"
   },
+  containerInputRestorePassword: {
+    width:"100%",
+    alignItems:"center",
+     height:"30%"
+  },
   loginInput: {
     fontSize: 20,
     borderBottomWidth: 1,

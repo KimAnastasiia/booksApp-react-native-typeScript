@@ -1,11 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
 import booksReducer from "./booksReducer";
 import idTokenReducer from "./idTokenReducer";
+import authReducer from "./authReducer";
+
 
 export const store = configureStore({
     reducer: {
         books: booksReducer,
-        idToken: idTokenReducer
+        idToken: idTokenReducer,
+        auth: authReducer
     }
 })
 

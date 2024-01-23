@@ -6,7 +6,9 @@ import CustomIcon from './CustomIcon';
 import CreateBookScreenComponent from './CreateBookScreenComponent';
 import { RootStackParamList } from './AppNavigator';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { FIREBASE_AUTH } from './FirebaseConfig';
+import { signOut , sendPasswordResetEmail} from "firebase/auth";
+import {  useSelector } from "react-redux";
+import { RootState } from "../redux/store"
 const Tap = createBottomTabNavigator();
 
 const LogoutComponent = () => {
@@ -16,11 +18,11 @@ const LogoutComponent = () => {
 type MainScreenComponentProps = NativeStackScreenProps<RootStackParamList, 'MainNavigator'>
 const MainNavigatorScreenComponent: React.FC<MainScreenComponentProps> = (props) => {
 
-    const auth = FIREBASE_AUTH
-  
+    const auth = useSelector((state: RootState) => state.auth.auth)
+
     const handleSignOut = async () => {
       try {
-        await auth.signOut();
+        await signOut(auth)
         props.navigation.push('Login')
       } catch (error:any) {
         console.error('Error signing out:', error.message);

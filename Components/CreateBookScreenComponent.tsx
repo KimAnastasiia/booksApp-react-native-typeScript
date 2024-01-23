@@ -132,7 +132,7 @@ const CreateBookScreenComponent: React.FC = () => {
 
             if (response.ok) {
                 let data = await response.json();
-                dispatch(setBooks([...books, { ...book, id: data.id }]))
+                let insertedBook = { ...book, id: data.id, hasImg:false }
                 setBook({
                     author: "",
                     title: "",
@@ -140,7 +140,10 @@ const CreateBookScreenComponent: React.FC = () => {
                 });
                 if(images[0]){
                     uploadImage(images[0], data.id)
+                    insertedBook.hasImg=true
                 }
+
+                dispatch(setBooks([...books, insertedBook]))
             } else {
                 console.error('Failed to create book:', response.status);
                 Alert.alert('Error', 'Failed to create book. Please try again later.');
