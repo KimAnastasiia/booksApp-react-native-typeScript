@@ -19,13 +19,18 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
   const dispatch = useDispatch();
   const books = useSelector((state: RootState) => state.books.books)
   const defaultImageSource = require('../assets/open-book.png');
+  const idToken = useSelector((state: RootState) => state.idToken.idToken)
   useEffect(() => {
     getAllBooks();
   }, [])
 
   let getAllBooks = async () => {
 
-    let response = await fetch(backendUrl + `/books`)
+    const response = await fetch(backendUrl + '/books', {
+      method: 'GET',
+      headers: {token: idToken}
+    })
+  
     if (response.ok) {
       let data = await response.json();
       //setBooks(data);
@@ -61,7 +66,8 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
           text: 'Delete',
           onPress: async () => {
             let response = await fetch(backendUrl + `/books/${id}`, {
-              method: 'DELETE'
+              method: 'DELETE',
+              headers: {token: idToken}
             });
             if (response.ok) {
               const updatedBooks = books.filter(book => book.id !== id);

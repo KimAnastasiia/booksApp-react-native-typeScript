@@ -5,6 +5,8 @@ import { Book } from '../entities/book';
 import styles from '../Utility/styles';
 import MyInput from './MyInput';
 import { RouteProp } from '@react-navigation/native';
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store"
 
 interface ScreenEditBookNavigationProps {
     route: RouteProp<{ params: { id: string } }, 'params'>;
@@ -18,13 +20,17 @@ const EditBookScreenComponent: React.FC<ScreenEditBookNavigationProps> = ({ rout
         title: "",
         id: ""
     })
-
+    const idToken = useSelector((state: RootState) => state.idToken.idToken)
     useEffect(() => {
         getBookInfo();
     }, [])
 
     let getBookInfo = async () => {
-        let response = await fetch(backendUrl + `/books/` + id)
+        let response = await fetch(backendUrl + `/books/` + id,{
+            method: 'GET',
+            headers: {token: idToken}
+        })
+        
         if (response.ok) {
             let data = await response.json();
             setBook(data);
@@ -41,7 +47,8 @@ const EditBookScreenComponent: React.FC<ScreenEditBookNavigationProps> = ({ rout
             let response = await fetch(`${backendUrl}/books/${id}`, {
                 method: 'PUT',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    token: idToken
                 },
                 body: JSON.stringify(book)
             });

@@ -9,6 +9,7 @@ import { RootState } from "../redux/store"
 import { setBooks } from "../redux/booksReducer";
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
+
 const imgDir = FileSystem.documentDirectory + 'images/';
 
 const ensureDirExists = async () => {
@@ -25,7 +26,7 @@ const CreateBookScreenComponent: React.FC = () => {
     })
     const dispatch = useDispatch();
     const books = useSelector((state: RootState) => state.books.books)
-
+    const idToken = useSelector((state: RootState) => state.idToken.idToken)
     const [uploading, setUploading] = useState(false);
     const [images, setImages] = useState<string[]>([]);
 
@@ -92,6 +93,7 @@ const CreateBookScreenComponent: React.FC = () => {
             method: 'POST',
             headers: {
                 'Content-Type': 'multipart/form-data',
+                token: idToken
             },
             body: formData,
         });

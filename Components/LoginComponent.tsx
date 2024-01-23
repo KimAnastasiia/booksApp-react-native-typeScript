@@ -6,6 +6,9 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from './FirebaseConfig';
 import styles from '../Utility/styles';
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store"
+import { setIdToken } from '../redux/idTokenReducer';
 
 type LoginComponentProps = NativeStackScreenProps<RootStackParamList, 'Login'>
 
@@ -15,12 +18,12 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const auth = FIREBASE_AUTH
-
+  const dispatch = useDispatch();
   const signIn = async () => {
     setLoading(true)
     try {
       const response = await signInWithEmailAndPassword(auth, email, password)
-      alert(response._tokenResponse.localId)
+      dispatch(setIdToken(response._tokenResponse.idToken));
       props.navigation.push('MainNavigator')
     } catch (error: any) {
       alert("sign in failed" + error.message)

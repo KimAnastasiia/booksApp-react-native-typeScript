@@ -4,13 +4,15 @@ import { backendUrl, tokenFireBaseStorage, firebaseStorage } from '../Global';
 import { Book } from '../entities/book';
 import styles from '../Utility/styles';
 import { type StackScreenProps } from '@react-navigation/stack';
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store"
 
 export type PreventRemoveParams = {
     DetailsBook: { id: string };
 };
 
 const BookDetailsScreenComponent = ({ route, navigation }: StackScreenProps<PreventRemoveParams, 'DetailsBook'>) => {
-
+    const idToken = useSelector((state: RootState) => state.idToken.idToken)
     const { id } = route.params;
     const [loading, setLoading] = useState(false);
     const [book, setBook] = useState<Book>({
@@ -25,7 +27,11 @@ const BookDetailsScreenComponent = ({ route, navigation }: StackScreenProps<Prev
 
     let getBookInfo = async () => {
 
-        let response = await fetch(backendUrl + `/books/` + id)
+        let response = await fetch(backendUrl + `/books/` + id,{
+            method: 'GET',
+            headers: {token: idToken}
+        })
+
         setLoading(true)
         if (response.ok) {
             let data = await response.json();
