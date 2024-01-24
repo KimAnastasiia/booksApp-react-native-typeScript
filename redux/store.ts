@@ -3,6 +3,7 @@ import booksReducer from "./booksReducer";
 import idTokenReducer from "./idTokenReducer";
 import authReducer from "./authReducer";
 import myBooksReducer from "./myBooksReducer";
+import userIdReducer from "./userIdReducer";
 
 
 export const store = configureStore({
@@ -10,7 +11,8 @@ export const store = configureStore({
         books: booksReducer,
         idToken: idTokenReducer,
         auth: authReducer,
-        myBooks:myBooksReducer
+        myBooks:myBooksReducer,
+        userId:userIdReducer
     }
 })
 

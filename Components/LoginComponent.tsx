@@ -9,6 +9,7 @@ import styles from '../Utility/styles';
 import { useDispatch, useSelector } from "react-redux";
 import { setIdToken } from '../redux/idTokenReducer';
 import { setAuth } from '../redux/authReducer';
+import { setUserId } from '../redux/userIdReducer';
 
 type LoginComponentProps = NativeStackScreenProps<RootStackParamList, 'Login'>
 
@@ -25,6 +26,7 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
       const response = await signInWithEmailAndPassword(auth, email, password)
       dispatch(setIdToken(response._tokenResponse.idToken));
       dispatch(setAuth(auth));
+      dispatch(setUserId(response._tokenResponse.localId));
       props.navigation.push('MainNavigator')
     } catch (error: any) {
       Alert.alert("Failed authorization","Sign in failed check your email or password")

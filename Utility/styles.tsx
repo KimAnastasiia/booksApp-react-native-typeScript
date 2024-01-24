@@ -8,6 +8,11 @@ const styles = StyleSheet.create({
     height: 100, 
     marginTop:70 
   },
+  titleEmpty:{
+    fontSize:30, 
+    marginRight:80, 
+    marginLeft:80
+  },
   containerLogin: {
     alignItems: "center",
     justifyContent: "space-around",

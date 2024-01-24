@@ -3,17 +3,12 @@ import { View, Text, ScrollView, Image, TouchableOpacity, Alert, Pressable } fro
 import { backendUrl, firebaseStorage, tokenFireBaseStorage } from '../Global';
 import styles from '../Utility/styles';
 import { Book } from '../entities/book';
-import { RootStackParamList } from './AppNavigator';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store"
 import { setMyBooks } from '../redux/myBooksReducer';
 import { setBooks, } from '../redux/booksReducer';
-
-
-
 
 const MyBooksScreenComponent: React.FC = (props) => {
 
@@ -132,11 +127,21 @@ const MyBooksScreenComponent: React.FC = (props) => {
 
   return (
     <ScrollView style={{ backgroundColor: "white" }}>
-      {myBooks.length > 0 ? (
+      {myBooks ? (
         myBooks.map((book) => <BookList key={book.id} book={book} />)
       ) : (
         <Text>Loading...</Text>
       )}
+      {myBooks.length==0 &&
+        <View style={{justifyContent:"center", flex:1, alignItems:"center"}}>
+          <Image
+              style={{width:"100%"}}
+              source={require("../assets/planet.png")}
+          /> 
+          <Text style={styles.titleEmpty}>You dont have any books yet :(</Text>
+        </View> 
+        
+      }
     </ScrollView>
   );
 

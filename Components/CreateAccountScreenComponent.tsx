@@ -1,12 +1,14 @@
 // screens/LoginScreen.tsx
 import React, { useState } from 'react';
-import { View, Image, ActivityIndicator, TextInput, Pressable, Text, TouchableOpacity } from 'react-native';
+import { View, Image, ActivityIndicator, TextInput, Pressable, Text, TouchableOpacity,Alert } from 'react-native';
 import { RootStackParamList } from './AppNavigator';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { FIREBASE_AUTH } from './FirebaseConfig';
 import styles from '../Utility/styles';
-
+import { useDispatch } from "react-redux";
+import { setIdToken } from '../redux/idTokenReducer';
+import { setUserId } from '../redux/userIdReducer';
 type CreateAccountComponentProps = NativeStackScreenProps<RootStackParamList, 'CreateAccount'>
 
 const CreateAccountScreenComponent: React.FC<CreateAccountComponentProps> = (props) => {
@@ -15,15 +17,17 @@ const CreateAccountScreenComponent: React.FC<CreateAccountComponentProps> = (pro
   const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const auth = FIREBASE_AUTH
-
+  const dispatch = useDispatch();
   const signUp = async () => {
 
     setLoading(true)
     try {
       const response = await createUserWithEmailAndPassword(auth, email, password)
+      dispatch(setIdToken(response._tokenResponse.idToken));
+      dispatch(setUserId(response._tokenResponse.localId));
       props.navigation.push('MainNavigator')
     } catch (error: any) {
-      alert("sign up failed" + error.message)
+      Alert.alert("Error","Email already in user")
     } finally {
       setLoading(false)
     }
