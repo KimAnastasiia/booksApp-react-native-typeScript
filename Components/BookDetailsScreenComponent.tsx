@@ -15,10 +15,12 @@ const BookDetailsScreenComponent = ({ route, navigation }: StackScreenProps<Prev
     const idToken = useSelector((state: RootState) => state.idToken.idToken)
     const { id } = route.params;
     const [loading, setLoading] = useState(false);
+    const userId = useSelector((state: RootState) => state.userId.userId)
     const [book, setBook] = useState<Book>({
         author: "",
         title: "",
-        id: ""
+        id: "",
+        userId:""
     })
 
     useEffect(() => {
@@ -42,11 +44,13 @@ const BookDetailsScreenComponent = ({ route, navigation }: StackScreenProps<Prev
 
     return (
         <View style={styles.containerDetails}>
-            <View style={styles.containerEditButton}>
+           {userId==book.userId && 
+           
+           <View style={styles.containerEditButton}>
                 <Pressable style={styles.editPressable} onPress={() => navigation.push('EditBook', { id: id })}>
                     <Text style={styles.textInButtonEdit}>edit</Text>
                 </Pressable>
-            </View>
+            </View>}
             <Image
                 style={styles.photoBook}
                 source={{uri:`${firebaseStorage}${id}.png?alt=media&token=${tokenFireBaseStorage}`}}

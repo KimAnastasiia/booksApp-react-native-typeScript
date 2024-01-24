@@ -38,7 +38,6 @@ const MainNavigatorScreenComponent: React.FC<MainScreenComponentProps> = (props)
         [
           {
             text: 'Cancel',
-            onPress: () => console.log('Cancel Pressed'),
             style: 'cancel',
           },
           {

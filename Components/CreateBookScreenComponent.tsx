@@ -74,7 +74,6 @@ const CreateBookScreenComponent: React.FC = () => {
         // Save image if not cancelled
         if (!result.canceled) {
             saveImage(result.assets[0].uri);
-            console.log(result.assets[0].uri);
         }
     };
 
@@ -102,11 +101,11 @@ const CreateBookScreenComponent: React.FC = () => {
         setUploading(false);
         if (response.ok) {
             Alert.alert('The book was successfully published');
-            deleteImage(images[0])
             setImages([])
         } else {
             Alert.alert('Error', 'Failed to post photos of book. Please try again later.');
         }
+        deleteImage(images[0])
     };
 
     // Delete image from file system
@@ -135,16 +134,15 @@ const CreateBookScreenComponent: React.FC = () => {
             if (response.ok) {
                 let data = await response.json();
                 let insertedBook = { ...book, id: data.id, hasImg:false }
+                if(images[0]){
+                    uploadImage(images[0], data.id)
+                    insertedBook.hasImg=true
+                }
                 setBook({
                     author: "",
                     title: "",
                     id: ""
                 });
-                if(images[0]){
-                    uploadImage(images[0], data.id)
-                    insertedBook.hasImg=true
-                }
-
                 dispatch(setBooks([...books, insertedBook]))
                 dispatch(setMyBooks([...myBooks, insertedBook]))
             } else {

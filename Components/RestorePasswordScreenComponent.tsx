@@ -26,7 +26,6 @@ const RestorePasswordScreenComponent: React.FC<RestorePasswordComponentProps> = 
             props.navigation.push('Login')
         } catch (error) {
             Alert.alert("Invalid email", "Check your email")
-            console.log(error)
         }
         setLoading(false)
     }
