@@ -9,6 +9,7 @@ import { RootState } from "../redux/store"
 import { setBooks } from "../redux/booksReducer";
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
+import { setMyBooks } from '../redux/myBooksReducer';
 
 const imgDir = FileSystem.documentDirectory + 'images/';
 
@@ -26,6 +27,7 @@ const CreateBookScreenComponent: React.FC = () => {
     })
     const dispatch = useDispatch();
     const books = useSelector((state: RootState) => state.books.books)
+    const myBooks = useSelector((state: RootState) => state.myBooks.myBooks)
     const idToken = useSelector((state: RootState) => state.idToken.idToken)
     const [uploading, setUploading] = useState(false);
     const [images, setImages] = useState<string[]>([]);
@@ -144,6 +146,7 @@ const CreateBookScreenComponent: React.FC = () => {
                 }
 
                 dispatch(setBooks([...books, insertedBook]))
+                dispatch(setMyBooks([...myBooks, insertedBook]))
             } else {
                 console.error('Failed to create book:', response.status);
                 Alert.alert('Error', 'Failed to create book. Please try again later.');

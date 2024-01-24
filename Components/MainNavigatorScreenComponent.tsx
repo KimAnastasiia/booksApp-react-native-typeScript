@@ -9,6 +9,7 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { signOut , sendPasswordResetEmail} from "firebase/auth";
 import {  useSelector } from "react-redux";
 import { RootState } from "../redux/store"
+import MyBooksScreenComponent from './MyBooksScreenComponent';
 const Tap = createBottomTabNavigator();
 
 const LogoutComponent = () => {
@@ -63,6 +64,9 @@ const MainNavigatorScreenComponent: React.FC<MainScreenComponentProps> = (props)
                     if (rn == "Log out") {
                         return <CustomIcon onPress={showAlert} nameOfComponent="logOut" color={focused ? 'black' : 'gray'} img={require('../assets/log-out.png')} />;
                     }
+                    if (rn == "MyBooks") {
+                        return <CustomIcon color={focused ? 'black' : 'gray'} img={require('../assets/leer.png')} />;
+                    }
                 },
                 tabBarStyle: {
                     backgroundColor: 'white',
@@ -82,6 +86,7 @@ const MainNavigatorScreenComponent: React.FC<MainScreenComponentProps> = (props)
             })}
         >
             <Tap.Screen name="All books" component={AllBooksScreenComponent} />
+            <Tap.Screen name="MyBooks" component={MyBooksScreenComponent} />
             <Tap.Screen name="Create new book" component={CreateBookScreenComponent} />
             <Tap.Screen name="Log out" component={LogoutComponent} />
              

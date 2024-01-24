@@ -9,24 +9,27 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 // Redux
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store"
-import { setBooks } from "../redux/booksReducer";
+import { setMyBooks } from '../redux/myBooksReducer';
+import { setBooks, } from '../redux/booksReducer';
 
-type AllBooksScreenComponentProps = NativeStackScreenProps<RootStackParamList, 'AllBooks'>
 
-const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) => {
+
+
+const MyBooksScreenComponent: React.FC = (props) => {
 
   // Redux
   const dispatch = useDispatch();
-  const books = useSelector((state: RootState) => state.books.books)
+  const myBooks = useSelector((state: RootState) => state.myBooks.myBooks )
+  const books = useSelector((state: RootState) => state.books.books )
   const defaultImageSource = require('../assets/open-book.png');
   const idToken = useSelector((state: RootState) => state.idToken.idToken)
   useEffect(() => {
-    getAllBooks();
+    getAllMyBooks();
   }, [])
 
-  let getAllBooks = async () => {
+  let getAllMyBooks = async () => {
 
-    const response = await fetch(backendUrl + '/books', {
+    const response = await fetch(backendUrl + '/books/myBooks', {
       method: 'GET',
       headers: {token: idToken}
     })
@@ -49,10 +52,42 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
           }
 
         }))
-      dispatch(setBooks(data));
+        dispatch(setMyBooks(data));
     }
   }
 
+  let deleteBook = async (id: string) => {
+    Alert.alert(
+      'Confirm Deletion',
+      'Are you sure you want to delete this book?',
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Delete',
+          onPress: async () => {
+            let response = await fetch(backendUrl + `/books/${id}`, {
+              method: 'DELETE',
+              headers: {token: idToken}
+            });
+            if (response.ok) {
+              const myUpdatedBooks = myBooks.filter(book => book.id !== id);
+              const updatedBooks = books.filter(book => book.id !== id);
+              dispatch(setMyBooks(myUpdatedBooks));
+              dispatch(setBooks(updatedBooks));
+              return Alert.alert('Book deleted successfully');
+            } else {
+              return Alert.alert('Error occurred when deleting the book');
+            }
+          },
+          style: 'destructive',
+        },
+      ],
+      { cancelable: false }
+    );
+  }
   const getBookImageUrl = (bookId: string) => {
     return `${firebaseStorage}${bookId}.png?alt=media&token=${tokenFireBaseStorage}`;
   };
@@ -82,6 +117,14 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
             <Text style={styles.author}>{book.author}</Text>
           </View>
         </View>
+        <View style={{ width: "16%" }}>
+          <TouchableOpacity style={styles.deleteBookButton} onPress={() => { deleteBook(book.id) }} >
+            <Image
+              style={styles.binLogo}
+              source={require('../assets/delete.png')}
+            />
+          </TouchableOpacity>
+        </View>
       </View>
     </TouchableOpacity>
 
@@ -89,8 +132,8 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
 
   return (
     <ScrollView style={{ backgroundColor: "white" }}>
-      {books.length > 0 ? (
-        books.map((book) => <BookList key={book.id} book={book} />)
+      {myBooks.length > 0 ? (
+        myBooks.map((book) => <BookList key={book.id} book={book} />)
       ) : (
         <Text>Loading...</Text>
       )}
@@ -99,4 +142,4 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
 
 }
 
-export default AllBooksScreenComponent;
+export default MyBooksScreenComponent;
