@@ -1,15 +1,16 @@
 // screens/LoginScreen.tsx
 import React, { useState } from 'react';
 import { View, Image, ActivityIndicator, TextInput, Pressable, Text, TouchableOpacity,Alert } from 'react-native';
-import { RootStackParamList } from './AppNavigator';
+import { RootStackParamList } from '../App/AppNavigator';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { signInWithEmailAndPassword, signOut , sendPasswordResetEmail} from "firebase/auth";
-import { FIREBASE_AUTH } from './FirebaseConfig';
-import styles from '../Utility/styles';
+import { FIREBASE_AUTH } from '../FirebaseConfig';
+import styles from '../../Utility/styles';
 import { useDispatch, useSelector } from "react-redux";
-import { setIdToken } from '../redux/idTokenReducer';
-import { setAuth } from '../redux/authReducer';
-import { setUserId } from '../redux/userIdReducer';
+import { setIdToken } from '../../redux/idTokenReducer';
+import { setAuth } from '../../redux/authReducer';
+import { setUserId } from '../../redux/userIdReducer';
+import { firebaseErrors } from '../../Global';
 
 type LoginComponentProps = NativeStackScreenProps<RootStackParamList, 'Login'>
 
@@ -29,7 +30,7 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
       dispatch(setUserId(response._tokenResponse.localId));
       props.navigation.push('MainNavigator')
     } catch (error: any) {
-      Alert.alert("Failed authorization","Sign in failed check your email or password")
+      Alert.alert(firebaseErrors.get(error.code))
     } finally {
       setLoading(false)
     }
@@ -39,13 +40,13 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
       <View>
         <Image
           style={styles.imgLogin}
-          source={require("../assets/Worldofbookslogo.png")}
+          source={require("../../assets/Worldofbookslogo.png")}
         />
       </View>
       <View style={{width:"100%",alignItems:"center"}}>
         <TextInput
           placeholder="Email"
-          placeholderTextColor={"white"}
+          placeholderTextColor={"#FFFFFF"}
           onChangeText={(text) => setEmail(text)}
           value={email}
           secureTextEntry={false}
@@ -53,7 +54,7 @@ const LoginComponent: React.FC<LoginComponentProps> = (props) => {
         />
         <TextInput
           placeholder="Password"
-          placeholderTextColor={"white"}
+          placeholderTextColor={"#FFFFFF"}
           secureTextEntry
           onChangeText={(text) => setPassword(text)}
           value={password}

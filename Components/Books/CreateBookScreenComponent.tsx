@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, Alert, Pressable, Image, ScrollView, StyleSheet, TouchableOpacity, FlatList, Button } from 'react-native';
-import { backendUrl } from '../Global';
-import MyInput from './MyInput';
-import styles from '../Utility/styles';
-import { Book } from '../entities/book';
+import { backendUrl } from '../../Global';
+import MyInput from '../MyInput';
+import styles from '../../Utility/styles';
+import { Book } from '../../entities/book';
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/store"
-import { setBooks } from "../redux/booksReducer";
+import { RootState } from "../../redux/store"
+import { setBooks } from "../../redux/booksReducer";
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
-import { setMyBooks } from '../redux/myBooksReducer';
+import { setMyBooks } from '../../redux/myBooksReducer';
 
 const imgDir = FileSystem.documentDirectory + 'images/';
 
@@ -23,7 +23,8 @@ const CreateBookScreenComponent: React.FC = () => {
     const [book, setBook] = useState<Book>({
         author: "",
         title: "",
-        id: ""
+        id: "",
+        userId:""
     })
     const dispatch = useDispatch();
     const books = useSelector((state: RootState) => state.books.books)
@@ -60,7 +61,7 @@ const CreateBookScreenComponent: React.FC = () => {
         const options: ImagePicker.ImagePickerOptions = {
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
             allowsEditing: true,
-            aspect: [4, 3],
+            aspect: [3, 4],
             quality: 0.75
         };
 
@@ -141,23 +142,22 @@ const CreateBookScreenComponent: React.FC = () => {
                 setBook({
                     author: "",
                     title: "",
-                    id: ""
+                    id: "",
+                    userId:""
                 });
                 dispatch(setBooks([...books, insertedBook]))
                 dispatch(setMyBooks([...myBooks, insertedBook]))
             } else {
-                console.error('Failed to create book:', response.status);
                 Alert.alert('Error', 'Failed to create book. Please try again later.');
                 setUploading(false);
               
             }
         } catch (error) {
-            console.error('Error during fetch:', error);
             Alert.alert('Error', 'An unexpected error occurred. Please try again later.');
         }
     };
     return (
-        <ScrollView style={{ backgroundColor: "white" }}>
+        <ScrollView style={{ backgroundColor: "#FFFFFF" }}>
             <View style={styles.containerCreateBook}>
                 <View style={styles.containerInputs}>
                     <MyInput
@@ -182,13 +182,25 @@ const CreateBookScreenComponent: React.FC = () => {
                     <ActivityIndicator animating={uploading} size="large" color="#0000ff" />
                   
                     {images.length==0 && 
-                    <>
-                        <Button title="Add photo from gallery" onPress={() => selectImage(true)} />
-                        <Button title="To make a photo" onPress={() => selectImage(false)} />
-                    </>
+                    
+                    <View style={styles.containerCreateButton}> 
+                        <Pressable style={{marginBottom:15}}  onPress={() => selectImage(true)}>
+                            <Text style={styles.textInAddPhotosButtons}>Add photo from gallery</Text>
+                        </Pressable>
+            
+                        <Pressable onPress={() => selectImage(false)}>
+                            <Text style={styles.textInAddPhotosButtons}>Take a photo</Text>
+                        </Pressable>
+                    </View>  
+                    
                     }
-                    { images.length>0 && <Button title="delete" onPress={() => deleteImage(images[0])} />}
-                 
+                    { images.length>0 && 
+                        <View style={styles.containerCreateButton}> 
+                            <Pressable onPress={() => deleteImage(images[0])}>
+                                    <Text style={styles.textInDeletePhotosButtons}>Delete</Text>
+                            </Pressable>
+                        </View> 
+                    }
                     
                 </View>
                 <View style={styles.containerCreateButton}>

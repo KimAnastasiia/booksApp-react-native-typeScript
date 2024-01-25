@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, Alert, Pressable } from 'react-native';
-import { backendUrl, firebaseStorage, tokenFireBaseStorage } from '../Global';
-import styles from '../Utility/styles';
-import { Book } from '../entities/book';
+import { backendUrl, firebaseStorage, tokenFireBaseStorage } from '../../Global';
+import styles from '../../Utility/styles';
+import { Book } from '../../entities/book';
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/store"
-import { setMyBooks } from '../redux/myBooksReducer';
-import { setBooks, } from '../redux/booksReducer';
+import { RootState } from "../../redux/store"
+import { setMyBooks } from '../../redux/myBooksReducer';
+import { setBooks, } from '../../redux/booksReducer';
 
 const MyBooksScreenComponent: React.FC = (props) => {
 
@@ -16,7 +16,7 @@ const MyBooksScreenComponent: React.FC = (props) => {
   const dispatch = useDispatch();
   const myBooks = useSelector((state: RootState) => state.myBooks.myBooks )
   const books = useSelector((state: RootState) => state.books.books )
-  const defaultImageSource = require('../assets/open-book.png');
+  const defaultImageSource = require('../../assets/open-book.png');
   const idToken = useSelector((state: RootState) => state.idToken.idToken)
   useEffect(() => {
     getAllMyBooks();
@@ -116,7 +116,7 @@ const MyBooksScreenComponent: React.FC = (props) => {
           <TouchableOpacity style={styles.deleteBookButton} onPress={() => { deleteBook(book.id) }} >
             <Image
               style={styles.binLogo}
-              source={require('../assets/delete.png')}
+              source={require('../../assets/delete.png')}
             />
           </TouchableOpacity>
         </View>
@@ -126,7 +126,7 @@ const MyBooksScreenComponent: React.FC = (props) => {
   )
 
   return (
-    <ScrollView style={{ backgroundColor: "white" }}>
+    <ScrollView style={{ backgroundColor: "#FFFFFF" }}>
       {myBooks ? (
         myBooks.map((book) => <BookList key={book.id} book={book} />)
       ) : (
@@ -136,7 +136,7 @@ const MyBooksScreenComponent: React.FC = (props) => {
         <View style={{justifyContent:"center", flex:1, alignItems:"center"}}>
           <Image
               style={{width:"100%"}}
-              source={require("../assets/planet.png")}
+              source={require("../../assets/planet.png")}
           /> 
           <Text style={styles.titleEmpty}>You dont have any books yet :(</Text>
         </View> 

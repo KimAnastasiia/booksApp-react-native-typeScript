@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity, Alert, Pressable } from 'react-native';
-import { backendUrl, firebaseStorage, tokenFireBaseStorage } from '../Global';
-import styles from '../Utility/styles';
-import { Book } from '../entities/book';
-import { RootStackParamList } from './AppNavigator';
+import { backendUrl, firebaseStorage, tokenFireBaseStorage } from '../../Global';
+import styles from '../../Utility/styles';
+import { Book } from '../../entities/book';
+import { RootStackParamList } from '../App/AppNavigator';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 // Redux
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/store"
-import { setBooks } from "../redux/booksReducer";
+import { RootState } from "../../redux/store"
+import { setBooks } from "../../redux/booksReducer";
 
 type AllBooksScreenComponentProps = NativeStackScreenProps<RootStackParamList, 'AllBooks'>
 
@@ -18,7 +18,7 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
   // Redux
   const dispatch = useDispatch();
   const books = useSelector((state: RootState) => state.books.books)
-  const defaultImageSource = require('../assets/open-book.png');
+  const defaultImageSource = require('../../assets/open-book.png');
   const idToken = useSelector((state: RootState) => state.idToken.idToken)
   useEffect(() => {
     getAllBooks();
@@ -88,7 +88,7 @@ const AllBooksScreenComponent: React.FC<AllBooksScreenComponentProps> = (props) 
   )
 
   return (
-    <ScrollView style={{ backgroundColor: "white" }}>
+    <ScrollView style={{ backgroundColor: "#FFFFFF" }}>
       {books.length > 0 ? (
         books.map((book) => <BookList key={book.id} book={book} />)
       ) : (

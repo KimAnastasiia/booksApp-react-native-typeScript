@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   loginInput: {
     fontSize: 20,
     borderBottomWidth: 1,
-    borderColor: "white",
+    borderColor: "#FFFFFF",
     width: "80%",
     marginBottom: 30,
     paddingBottom: 10
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   },
   containerCreateBook: {
     alignContent: "center",
-    backgroundColor: "white",
+    backgroundColor: "#FFFFFF",
     justifyContent: "space-between",
     alignItems: "center",
     flex: 1,
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   },
   containerDetails: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#FFFFFF",
     alignItems: "center"
   },
   saveButton: {
@@ -144,7 +144,18 @@ const styles = StyleSheet.create({
     lineHeight: 21,
     fontWeight: 'bold',
     letterSpacing: 0.25,
-    color: 'white',
+    color: '#FFFFFF',
+  },
+  textInAddPhotosButtons: {
+    fontSize: 16,
+    letterSpacing: 0.25,
+    color: '#3B89FF',
+  },
+  textInDeletePhotosButtons: {
+    fontSize: 16,
+    letterSpacing: 0.25,
+    color: '#FF3434',
+    textDecorationLine: 'underline'
   },
   containerCreateButton: {
     width: "100%",
@@ -162,7 +173,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start"
   },
   containerEdit: {
-    backgroundColor: "white",
+    backgroundColor: "#FFFFFF",
     flex: 1,
     paddingTop: 30
   },
@@ -181,7 +192,7 @@ const styles = StyleSheet.create({
     width: 300,
     height: 350,
     marginTop: 20,
-    borderColor: "black",
+    borderColor: "#000000",
     borderWidth: 0.5
   },
   bookAuthor: {
@@ -198,7 +209,7 @@ const styles = StyleSheet.create({
     borderRadius: 40
   },
   textInButtonEdit: {
-    color: "white",
+    color: "#FFFFFF",
     fontSize: 15
   },
   containerEditButton: {

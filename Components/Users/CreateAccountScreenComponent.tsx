@@ -1,14 +1,15 @@
 // screens/LoginScreen.tsx
 import React, { useState } from 'react';
 import { View, Image, ActivityIndicator, TextInput, Pressable, Text, TouchableOpacity,Alert } from 'react-native';
-import { RootStackParamList } from './AppNavigator';
+import { RootStackParamList } from '../App/AppNavigator';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { FIREBASE_AUTH } from './FirebaseConfig';
-import styles from '../Utility/styles';
+import { FIREBASE_AUTH } from '../FirebaseConfig';
+import styles from '../../Utility/styles';
 import { useDispatch } from "react-redux";
-import { setIdToken } from '../redux/idTokenReducer';
-import { setUserId } from '../redux/userIdReducer';
+import { setIdToken } from '../../redux/idTokenReducer';
+import { setUserId } from '../../redux/userIdReducer';
+import { firebaseErrors } from '../../Global';
 type CreateAccountComponentProps = NativeStackScreenProps<RootStackParamList, 'CreateAccount'>
 
 const CreateAccountScreenComponent: React.FC<CreateAccountComponentProps> = (props) => {
@@ -27,7 +28,8 @@ const CreateAccountScreenComponent: React.FC<CreateAccountComponentProps> = (pro
       dispatch(setUserId(response._tokenResponse.localId));
       props.navigation.push('MainNavigator')
     } catch (error: any) {
-      Alert.alert("Error","Email already in user")
+      Alert.alert(firebaseErrors.get(error.code))
+      console.log(error)
     } finally {
       setLoading(false)
     }
@@ -38,13 +40,13 @@ const CreateAccountScreenComponent: React.FC<CreateAccountComponentProps> = (pro
       <View>
         <Image
           style={styles.imgLogin}
-          source={require("../assets/Worldofbookslogo.png")}
+          source={require("../../assets/Worldofbookslogo.png")}
         />
       </View>
       <View style={{width:"100%",alignItems:"center"}}>
         <TextInput
           placeholder="Email"
-          placeholderTextColor={"white"}
+          placeholderTextColor={"#FFFFFF"}
           onChangeText={(text) => setEmail(text)}
           value={email}
           secureTextEntry={false}
@@ -52,7 +54,7 @@ const CreateAccountScreenComponent: React.FC<CreateAccountComponentProps> = (pro
         />
         <TextInput
           placeholder="Password"
-          placeholderTextColor={"white"}
+          placeholderTextColor={"#FFFFFF"}
           secureTextEntry
           onChangeText={(text) => setPassword(text)}
           value={password}

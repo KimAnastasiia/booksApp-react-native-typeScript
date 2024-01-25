@@ -1,11 +1,11 @@
 // screens/LoginScreen.tsx
 import React, { useState } from 'react';
 import { View, Image, ActivityIndicator, TextInput, Pressable, Text, TouchableOpacity, Alert } from 'react-native';
-import { RootStackParamList } from './AppNavigator';
+import { RootStackParamList } from '../App/AppNavigator';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { sendPasswordResetEmail } from "firebase/auth";
-import { FIREBASE_AUTH } from './FirebaseConfig';
-import styles from '../Utility/styles';
+import { FIREBASE_AUTH } from '../FirebaseConfig';
+import styles from '../../Utility/styles';
 
 
 type RestorePasswordComponentProps = NativeStackScreenProps<RootStackParamList, 'RestorePassword'>
@@ -34,13 +34,13 @@ const RestorePasswordScreenComponent: React.FC<RestorePasswordComponentProps> = 
             <View style={{ height: "30%" }}>
                 <Image
                     style={styles.imgLogin}
-                    source={require("../assets/Worldofbookslogo.png")}
+                    source={require("../../assets/Worldofbookslogo.png")}
                 />
             </View>
             <View style={styles.containerInputRestorePassword}>
                 <TextInput
                     placeholder="Email"
-                    placeholderTextColor={"white"}
+                    placeholderTextColor={"#FFFFFF"}
                     onChangeText={(text) => setEmail(text)}
                     value={email}
                     secureTextEntry={false}

@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, Alert, Pressable } from 'react-native';
-import { Book } from '../entities/book';
-import styles from '../Utility/styles';
-import MyInput from './MyInput';
+import { Book } from '../../entities/book';
+import styles from '../../Utility/styles';
+import MyInput from '../MyInput';
 import { RouteProp } from '@react-navigation/native';
 import { useSelector, useDispatch } from "react-redux";
-import { RootState } from "../redux/store"
-import { setMyBooks } from '../redux/myBooksReducer';
-import { setBooks } from '../redux/booksReducer';
-import { backendUrl, firebaseStorage, tokenFireBaseStorage } from '../Global';
+import { RootState } from "../../redux/store"
+import { setMyBooks } from '../../redux/myBooksReducer';
+import { setBooks } from '../../redux/booksReducer';
+import { backendUrl, firebaseStorage, tokenFireBaseStorage } from '../../Global';
+import { setBook } from '../../redux/bookReducer';
 interface ScreenEditBookNavigationProps {
     route: RouteProp<{ params: { id: string } }, 'params'>;
 }
@@ -17,11 +18,7 @@ const EditBookScreenComponent: React.FC<ScreenEditBookNavigationProps> = ({ rout
     const { id } = route.params;
     const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
-    const [book, setBook] = useState<Book>({
-        author: "",
-        title: "",
-        id: ""
-    })
+    const book = useSelector((state: RootState) => state.book.book)
     const idToken = useSelector((state: RootState) => state.idToken.idToken)
     useEffect(() => {
         getBookInfo();
@@ -91,7 +88,7 @@ const EditBookScreenComponent: React.FC<ScreenEditBookNavigationProps> = ({ rout
 
         if (response.ok) {
             let data = await response.json();
-            setBook(data);
+            dispatch(setBook(data));
         }
     }
 
@@ -117,25 +114,23 @@ const EditBookScreenComponent: React.FC<ScreenEditBookNavigationProps> = ({ rout
                 getAllBooks()
                 getAllMyBooks()
             } else {
-                console.error('Failed to edit book:', response.status);
                 Alert.alert('Error', 'Failed to edit book. Please try again later.');
             }
         } catch (error) {
-            console.error('Error during fetch:', error);
             Alert.alert('Error', 'An unexpected error occurred. Please try again later.');
         }
     };
     return (
         <View style={styles.containerEdit}>
             <MyInput
-                onChangeText={(text) => { setBook({ ...book, title: text }) }}
+                onChangeText={(text) => { dispatch(setBook({ ...book, title: text })) }}
                 value={book.title}
                 placeholder={"title of book"}
                 secureTextEntry={false}
                 label='Title'
             />
             <MyInput
-                onChangeText={(text) => { setBook({ ...book, author: text }) }}
+                onChangeText={(text) => { dispatch(setBook({ ...book, author: text })) }}
                 value={book.author}
                 placeholder={"author of book"}
                 secureTextEntry={false}

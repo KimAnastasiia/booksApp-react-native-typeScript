@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, ActivityIndicator, Pressable, Image, ScrollView } from 'react-native';
-import { backendUrl, tokenFireBaseStorage, firebaseStorage } from '../Global';
-import { Book } from '../entities/book';
-import styles from '../Utility/styles';
+import { backendUrl, tokenFireBaseStorage, firebaseStorage } from '../../Global';
+import styles from '../../Utility/styles';
 import { type StackScreenProps } from '@react-navigation/stack';
-import { useSelector } from "react-redux";
-import { RootState } from "../redux/store"
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../redux/store"
+import { setBook } from '../../redux/bookReducer';
+
 
 export type PreventRemoveParams = {
     DetailsBook: { id: string };
@@ -16,13 +17,8 @@ const BookDetailsScreenComponent = ({ route, navigation }: StackScreenProps<Prev
     const { id } = route.params;
     const [loading, setLoading] = useState(false);
     const userId = useSelector((state: RootState) => state.userId.userId)
-    const [book, setBook] = useState<Book>({
-        author: "",
-        title: "",
-        id: "",
-        userId:""
-    })
-
+    const dispatch = useDispatch();
+    const book = useSelector((state: RootState) => state.book.book)
     useEffect(() => {
         getBookInfo();
     }, [])
@@ -37,7 +33,7 @@ const BookDetailsScreenComponent = ({ route, navigation }: StackScreenProps<Prev
         setLoading(true)
         if (response.ok) {
             let data = await response.json();
-            setBook(data);
+            dispatch(setBook(data));
         }
         setLoading(false)
     }

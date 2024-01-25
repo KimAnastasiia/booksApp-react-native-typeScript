@@ -2,11 +2,11 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import MainNavigatorScreenComponent from './MainNavigatorScreenComponent';
-import EditBookScreenComponent from './EditBookScreenComponent';
-import BookDetailsScreenComponent from './BookDetailsScreenComponent';
-import LoginComponent from './LoginComponent';
-import CreateAccountScreenComponent from './CreateAccountScreenComponent';
-import RestorePasswordScreenComponent from './RestorePasswordScreenComponent';
+import EditBookScreenComponent from '../Books/EditBookScreenComponent';
+import BookDetailsScreenComponent from '../Books/BookDetailsScreenComponent';
+import LoginComponent from '../Users/LoginComponent';
+import CreateAccountScreenComponent from '../Users/CreateAccountScreenComponent';
+import RestorePasswordScreenComponent from '../Users/RestorePasswordScreenComponent';
 
 export type RootStackParamList = {
   EditBook: undefined;
